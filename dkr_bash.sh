@@ -1,5 +1,5 @@
 #!/bin/bash
 echo $@
-docker run  -it --rm  --name mynodejs -v $(pwd):/mnt/test  -w /mnt/test \
-	 3hdeng/nodejs:4.7 /bin/bash
+docker run  -it --rm  --name mynodegit -v $(pwd):/mnt/test  -w /mnt/test \
+	 3hdeng/nodegit:4.8 /bin/bash
 

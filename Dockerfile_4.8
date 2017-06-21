@@ -1,9 +1,10 @@
-# to build 3hdeng/nodegit:4.7
-FROM 3hdeng/nodejs:4.7
+# to build 3hdeng/nodegit:4.8
+FROM node:4.8
 MAINTAINER 3hdeng
 
 #ENV PYTHONIOENCODING UTF-8
 RUN npm install -U npm && npm --version
-#RUN npm install nodegit 
+
+RUN npm install nodegit 
 
 CMD []

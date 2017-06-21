@@ -1,5 +1,5 @@
 #!/bin/bash
-ver=4.7
+ver=4.8
 if [[ "$#" == "1" ]]; then
 	  ver=$1
   fi

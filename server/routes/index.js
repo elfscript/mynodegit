@@ -92,9 +92,9 @@ router.get('/demo1',(req, res) => {
 				console.log("path.join(): " + git_fullName);
 			   	git_fullName = git_fullName.replace(/\\/g, '/');
 				sub_fullName = sub_fullName.replace(/\\/g, '/');
-				console.log("git_fullName" + git_fullName); 	
+				console.log("git_fullName=" + git_fullName); 	
 				//process.chdir();
-				return index.addByPath(git_fullName);
+				return index.addByPath(sub_fullName);
 				}).catch( function(err){ console.log(err);} )
 		.then(function() {
 				// this will write both files to the index

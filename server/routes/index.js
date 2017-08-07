@@ -102,6 +102,8 @@ router.get('/demo1',(req, res) => {
 //=== notes/cat0, cat1, cat2, ..., 
 //=== cat0 is the default notebook 
 //var fs= require('fs');
+const myutil=require('../../myutil'); 
+
 var fnames=[];
 router.get('/notes', (req, res) => {
    console.log("routes api, /notes matching");
@@ -109,11 +111,23 @@ router.get('/notes', (req, res) => {
    console.log("noteDir resolved to " + dirName);
    //fs.readdir=promisify(fs.readdir);
    fse.readdir(dirName).then( files => {files.forEach(file=> {console.log(file);});
-                             fnames=files; })
+                             fnames=files.filter(fname => {
+				if(fname == ".git") return false;
+				else return true;
+                                } ); })
+
         .catch(err =>{ console.log(err);})
-	.then( () => { fnames.sort();
-			console.log(fnames);
-                         res.json(fnames); })
+	.then( () => { var fInfos=fnames.map(function(v) {
+				var mtime= fse.statSync( path.join(dirName, v) ).mtime.getTime(); 
+				var tstr=myutil.timestamp2DateString(mtime);
+
+                            return { name:v, mtime:mtime, tstr:tstr}; 
+
+  
+                          })
+              .sort(function(a, b) { return b.mtime - a.mtime; }); 
+			console.log(fInfos);
+                         res.json(fInfos); })
         .catch(err =>{ console.log(err);});
 });
 

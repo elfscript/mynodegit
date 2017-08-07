@@ -8,18 +8,6 @@ router.use(cors());
 
 const Git = require("nodegit");
 
-router.get('/ntes', (req, res) => {
-		db.collection('notes')
-		.find()
-		.sort({ title: 1 })
-		.toArray((err, docs) => {
-			if (err) {
-			console.log('error ', err)
-			} else {
-			res.json(docs);
-			}
-			});
-		});
 router.get('/note/:id', (req, res) => {
 		db.collection('notes')
 		.find({id:parseInt(req.params.id)})
@@ -39,14 +27,14 @@ var promisify = require("promisify-node");
 var fse = promisify(require("fs-extra"));
 
 
-
+const gitServerDir = "/workspaces/mynodegit/gitRepos";
+const notesDir=gitServerDir + '/notes';
 
 router.get('/demo1',(req, res) => {
 
 		var fileName = "newfile.txt";
 		var fileContent = "hello world, demo1";
 		var dirName="demo1";
-		const gitServerDir = "/workspaces/mynodegit/gitRepos";
     		var fullName="";
 		var sub_fullName;
 		// ensureDir is an alias to mkdirp, which has the callback with a weird name
@@ -110,6 +98,24 @@ router.get('/demo1',(req, res) => {
 				})
 
 } );
+
+//=== notes/cat0, cat1, cat2, ..., 
+//=== cat0 is the default notebook 
+//var fs= require('fs');
+var fnames=[];
+router.get('/notes', (req, res) => {
+   console.log("routes api, /notes matching");
+   var dirName=path.resolve(notesDir);
+   console.log("noteDir resolved to " + dirName);
+   //fs.readdir=promisify(fs.readdir);
+   fse.readdir(dirName).then( files => {files.forEach(file=> {console.log(file);});
+                             fnames=files; })
+        .catch(err =>{ console.log(err);})
+	.then( () => { fnames.sort();
+			console.log(fnames);
+                         res.json(fnames); })
+        .catch(err =>{ console.log(err);});
+});
 
 //=========
 router.use(bodyParser.json());

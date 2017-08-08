@@ -69,9 +69,33 @@ var deleteFolderRecursive = function(path) {
   }
 };
 
+//========== to convert unix timestamp
+function timestamp2DateString(UNIX_timestamp) {
+    var x= new Date(UNIX_timestamp);
+    var hour = String(x.getUTCHours())
+    if (hour.length == 1) {
+        hour = '0' + hour;
+    }
+    var minutes = String(x.getUTCMinutes())
+    if (minutes.length == 1) {
+        minutes = '0' + minutes;
+    }
+    var secs = String(x.getUTCSeconds())
+    if (secs.length == 1) {
+        secs = '0' + secs;
+    }
+
+    var time = hour + ':' + minutes + ":" + secs;
+    var yyyy = x.getFullYear();
+    var mm = ('0' + (x.getMonth() + 1)).slice(-2); // Months are zero basex. Add leading 0.
+    var dd = ('0' + x.getUTCDate()).slice(-2);  // Add leading 0.
+    time = yyyy + '.' +mm +  '.' + dd + ' UTC ' +time;	 
+    return time;
+}
 
 //===
 module.exports={
 	rmdir:deleteFolderRecursive,
 	mv:p_mv_cp,
+        timestamp2DateString:timestamp2DateString,
 }

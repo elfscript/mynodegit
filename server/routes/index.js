@@ -159,6 +159,48 @@ router.get('/indexentries', (req, res) => {
 			});
 });
 
+//===
+
+router.get('/tree_entries', (req, res) => {
+		console.log("routes api, /tree_entries matching");
+
+		var dirName=path.resolve(notesDir);
+		//var files=[];
+
+		console.log("noteDir resolved to " + dirName);
+
+		Git.Repository.open(dirName)
+		.then(function(repo) {
+			return repo.getMasterCommit();
+			})
+		.then(function(firstCommitOnMaster) {
+			return firstCommitOnMaster.getTree();
+			})
+		.then(function(tree) {
+			// `walk()` returns an event.
+			var walker = tree.walk();
+			walker.on("entry", function(entry) {
+				console.log("walker: " +entry.path());
+				//files.push({"fname":entry.path()});
+				});
+
+			// Don't forget to call `start()`!
+			walker.on("end", finalEntries => {
+				console.log(finalEntries);
+				j_entries=finalEntries.map( entry=>{ return {name:entry.path(), oid:entry.oid()}; });
+	 			res.json(j_entries); 
+			});
+			walker.start();
+			}).catch(err =>{ console.log(err);} );
+		/*.then(function(files){
+			//	res.json({'k1':'v1', 'k2':'v2', 'k3':'v3'});
+		        res.json(files);	
+		     }).catch(err =>{ console.log(err);});*/
+ 
+});
+
+
+
 //=========
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));

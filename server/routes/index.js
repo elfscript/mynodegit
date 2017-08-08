@@ -35,7 +35,7 @@ router.get('/demo1',(req, res) => {
 		var fileName = "newfile.txt";
 		var fileContent = "hello world, demo1";
 		var dirName="demo1";
-    		var fullName="";
+		var fullName="";
 		var sub_fullName;
 		// ensureDir is an alias to mkdirp, which has the callback with a weird name
 		// and in the 3rd position of 4 (the 4th being used for recursion). We have to
@@ -78,7 +78,7 @@ router.get('/demo1',(req, res) => {
 				//git_fullName= path.join(gitServerDir,'notes',sub_fullName);
 				git_fullName= path.join(repo.workdir(),sub_fullName);
 				console.log("path.join(): " + git_fullName);
-			   	git_fullName = git_fullName.replace(/\\/g, '/');
+				git_fullName = git_fullName.replace(/\\/g, '/');
 				sub_fullName = sub_fullName.replace(/\\/g, '/');
 				console.log("git_fullName=" + git_fullName); 	
 				//process.chdir();
@@ -106,29 +106,57 @@ const myutil=require('../../myutil');
 
 var fnames=[];
 router.get('/notes', (req, res) => {
-   console.log("routes api, /notes matching");
-   var dirName=path.resolve(notesDir);
-   console.log("noteDir resolved to " + dirName);
-   //fs.readdir=promisify(fs.readdir);
-   fse.readdir(dirName).then( files => {files.forEach(file=> {console.log(file);});
-                             fnames=files.filter(fname => {
+		console.log("routes api, /notes matching");
+		var dirName=path.resolve(notesDir);
+		console.log("noteDir resolved to " + dirName);
+		//fs.readdir=promisify(fs.readdir);
+		fse.readdir(dirName).then( files => {files.forEach(file=> {console.log(file);});
+			fnames=files.filter(fname => {
 				if(fname == ".git") return false;
 				else return true;
-                                } ); })
+				} ); })
 
-        .catch(err =>{ console.log(err);})
-	.then( () => { var fInfos=fnames.map(function(v) {
+		.catch(err =>{ console.log(err);})
+		.then( () => { var fInfos=fnames.map(function(v) {
 				var mtime= fse.statSync( path.join(dirName, v) ).mtime.getTime(); 
 				var tstr=myutil.timestamp2DateString(mtime);
 
-                            return { name:v, mtime:mtime, tstr:tstr}; 
+				return { name:v, mtime:mtime, tstr:tstr}; 
 
-  
-                          })
-              .sort(function(a, b) { return b.mtime - a.mtime; }); 
+
+				})
+			.sort(function(a, b) { return b.mtime - a.mtime; }); 
 			console.log(fInfos);
-                         res.json(fInfos); })
-        .catch(err =>{ console.log(err);});
+			res.json(fInfos); })
+		.catch(err =>{ console.log(err);});
+});
+
+//==================
+router.get('/indexentries', (req, res) => {
+		console.log("routes api, /indexentries matching");
+
+		var dirName=path.resolve(notesDir);
+		console.log("noteDir resolved to " + dirName);
+
+		Git.Repository.open(dirName)
+		.then(function(repo) {
+			return repo.refreshIndex()
+			.then(function(index) {
+				var files = index.entries().filter(function(entry) {
+					return true;
+					});
+
+				console.log(
+					"\n-------------------\n" +
+					"index entries: " +
+					"\n-------------------\n");
+				files.forEach(function(entry) {
+					console.log(entry.path);
+					});
+				res.json(files); 
+				}).catch(err =>{ console.log(err);});
+
+			});
 });
 
 //=========

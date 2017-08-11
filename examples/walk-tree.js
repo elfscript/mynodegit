@@ -1,4 +1,4 @@
-var nodegit = require("../"),
+var nodegit = require("nodegit"),
     path = require("path");
 
 // A `tree` in git is typically a representation of the filesystem at
@@ -14,9 +14,13 @@ nodegit.Repository.open(path.resolve(__dirname, "../.git"))
   })
   .then(function(tree) {
     // `walk()` returns an event.
-    var walker = tree.walk();
+    console.log("tree.path():"+ tree.path());
+    var walker = tree.walk(false);
     walker.on("entry", function(entry) {
-      console.log(entry.path());
+      if(entry.isTree()) {
+         console.log(entry.path());
+         console.log(entry.oid());
+       }
     });
 
     // Don't forget to call `start()`!

@@ -8,18 +8,6 @@ router.use(cors());
 
 const Git = require("nodegit");
 
-router.get('/note/:id', (req, res) => {
-		db.collection('notes')
-		.find({id:parseInt(req.params.id)})
-		.next((err, doc) => {
-			if (err) {
-			console.log('error ', err)
-			} else {
-			res.json(doc);
-			}
-			});
-		});
-
 
 //=========
 var path = require("path");
@@ -106,6 +94,35 @@ const myutil=require('../../myutil');
 
 var fnames=[];
 //=== to list the files under notes.git 
+
+/**
+ * @swagger
+ * definition:
+ *   Note:
+ *     properties:
+ *       name:
+ *         type: string
+ *       tstr:
+ *         type: string
+ *       mtime:
+ *         type: number 
+ */
+
+/**
+ * @swagger
+ * /api/notes:
+ *   get:
+ *     tags:
+ *       - notes
+ *     description: Returns all notes
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: An array of notes
+ *         schema:
+ *           $ref: '#/definitions/Note'
+ */
 router.get('/notes', (req, res) => {
 		console.log("routes api, /notes matching");
 		var dirName=path.resolve(notesDir);
@@ -131,6 +148,43 @@ router.get('/notes', (req, res) => {
 			res.json(fInfos); })
 		.catch(err =>{ console.log(err);});
 });
+
+
+
+//===
+/**
+ * @swagger
+ * /api/note/{id}:
+ *   get:
+ *     tags:
+ *       - note 
+ *     description: Returns a single note 
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: id
+ *         description: note id
+ *         in: path
+ *         required: true
+ *         type: integer
+ *     responses:
+ *       200:
+ *         description: A single note
+ *         schema:
+ *           $ref: '#/definitions/Note'
+ */
+
+router.get('/note/:id', (req, res) => {
+		db.collection('notes')
+		.find({id:parseInt(req.params.id)})
+		.next((err, doc) => {
+			if (err) {
+			console.log('error ', err)
+			} else {
+			res.json(doc);
+			}
+			});
+		});
 
 //==================
 router.get('/indexentries', (req, res) => {

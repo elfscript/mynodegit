@@ -105,6 +105,7 @@ router.get('/demo1',(req, res) => {
 const myutil=require('../../myutil'); 
 
 var fnames=[];
+//=== to list the files under notes.git 
 router.get('/notes', (req, res) => {
 		console.log("routes api, /notes matching");
 		var dirName=path.resolve(notesDir);
@@ -143,6 +144,7 @@ router.get('/indexentries', (req, res) => {
 			return repo.refreshIndex()
 			.then(function(index) {
 				var files = index.entries().filter(function(entry) {
+					//if(entry.path.indexOf(".js") >=0 )
 					return true;
 					});
 
@@ -153,30 +155,40 @@ router.get('/indexentries', (req, res) => {
 				files.forEach(function(entry) {
 					console.log(entry.path);
 					});
-				res.json(files); 
-				}).catch(err =>{ console.log(err);});
+				var fInfos=files.map(function(file) {
+					var mtime= file.mtime.seconds()*1000; 
+					var tstr=myutil.timestamp2DateString(mtime);
 
-			});
+					return { id: file.id.toString(), name:file.path, mtime:mtime, tstr:tstr, ctime:file.ctime.seconds()*1000}; 
+
+
+					}).sort(function(a, b) { return b.mtime - a.mtime; }); 
+
+				res.json(fInfos); 
+			}).catch(err =>{ console.log(err);});
+
+		});
 });
 
 //===
 
-router.get('/tree_entries', (req, res) => {
-		console.log("routes api, /tree_entries matching");
 
-		var dirName=path.resolve(notesDir);
-		//var files=[];
+const tree_entries_walk= (req, res) => {
+	console.log("routes api, /tree_entries matching");
 
-		console.log("noteDir resolved to " + dirName);
+	var dirName=path.resolve(notesDir);
+	//var files=[];
 
-		Git.Repository.open(dirName)
+	console.log("noteDir resolved to " + dirName);
+
+	Git.Repository.open(dirName)
 		.then(function(repo) {
-			return repo.getMasterCommit();
-			})
-		.then(function(firstCommitOnMaster) {
+				return repo.getMasterCommit();
+				})
+	.then(function(firstCommitOnMaster) {
 			return firstCommitOnMaster.getTree();
 			})
-		.then(function(tree) {
+	.then(function(tree) {
 			// `walk()` returns an event.
 			var walker = tree.walk();
 			walker.on("entry", function(entry) {
@@ -188,17 +200,18 @@ router.get('/tree_entries', (req, res) => {
 			walker.on("end", finalEntries => {
 				console.log(finalEntries);
 				j_entries=finalEntries.map( entry=>{ return {name:entry.path(), oid:entry.oid()}; });
-	 			res.json(j_entries); 
-			});
+				res.json(j_entries); 
+				});
 			walker.start();
 			}).catch(err =>{ console.log(err);} );
-		/*.then(function(files){
-			//	res.json({'k1':'v1', 'k2':'v2', 'k3':'v3'});
-		        res.json(files);	
-		     }).catch(err =>{ console.log(err);});*/
- 
-});
+	/*.then(function(files){
+	//	res.json({'k1':'v1', 'k2':'v2', 'k3':'v3'});
+	res.json(files);	
+	}).catch(err =>{ console.log(err);});*/
 
+};
+
+router.get('/tree_entries', tree_entries_walk); 
 
 
 //=========

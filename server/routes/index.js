@@ -154,39 +154,88 @@ router.get('/notes', (req, res) => {
 //===
 /**
  * @swagger
- * /api/note/{id}:
+ * definition:
+ *   Blob:
+ *     properties:
+ *       id:
+ *         type: string
+ *       blob:
+ *         type: string
+ */
+
+
+/**
+ * @swagger
+ * /api/blob/{id}:
  *   get:
  *     tags:
- *       - note 
- *     description: Returns a single note 
+ *       - blob 
+ *     description: Returns blob content 
  *     produces:
  *       - application/json
  *     parameters:
  *       - name: id
- *         description: note id
+ *         description: blob oid(sha1 chksum)
  *         in: path
  *         required: true
- *         type: integer
+ *         type: string 
  *     responses:
  *       200:
- *         description: A single note
+ *         description: blob content 
  *         schema:
- *           $ref: '#/definitions/Note'
+ *           $ref: '#/definitions/Blob'
  */
 
-router.get('/note/:id', (req, res) => {
-		db.collection('notes')
-		.find({id:parseInt(req.params.id)})
-		.next((err, doc) => {
-			if (err) {
-			console.log('error ', err)
-			} else {
-			res.json(doc);
-			}
-			});
-		});
+router.get('/blob/:id', (req, res) => {
+		var oidStr = req.params.id;
+                var dirName=path.resolve(notesDir);
+		console.log("noteDir resolved to " + dirName);
+
+		Git.Repository.open(dirName)
+		.then(function(repo) {
+                     repo.getBlob(oidStr).then(function(blob) {
+			res.json({id:oidStr, blob:blob.toString()});
+                    });	
+		}).catch(err => console.log(err));
+
+	});
 
 //==================
+
+
+/**
+ * @swagger
+ * definition:
+ *   IndexEntry:
+ *     properties:
+ *       id:
+ *         type: string
+ *       path:
+ *         type: string 
+ *       tstr:
+ *         type: string
+ *       mtime:
+ *         type: number
+ *       ctime:
+ *         type: number 
+ */
+
+/**
+ * @swagger
+ * /api/indexentries:
+ *   get:
+ *     tags:
+ *       - IndexEntries 
+ *     description: Returns array of indexEntries
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: An array of indexEntries
+ *         schema:
+ *           $ref: '#/definitions/IndexEntry'
+ */
+
 router.get('/indexentries', (req, res) => {
 		console.log("routes api, /indexentries matching");
 
@@ -213,7 +262,7 @@ router.get('/indexentries', (req, res) => {
 					var mtime= file.mtime.seconds()*1000; 
 					var tstr=myutil.timestamp2DateString(mtime);
 
-					return { id: file.id.toString(), name:file.path, mtime:mtime, tstr:tstr, ctime:file.ctime.seconds()*1000}; 
+					return { id: file.id.toString(), path:file.path, mtime:mtime, tstr:tstr, ctime:file.ctime.seconds()*1000}; 
 
 
 					}).sort(function(a, b) { return b.mtime - a.mtime; }); 

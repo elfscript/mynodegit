@@ -1,18 +1,13 @@
 const Git = require("nodegit");
 const path = require("path");
-const {router, gitReposDir, notesDir} = require('./router_core');
+const myutil =require("../../myutil");
 
+const {routerxxx, gitReposDir, notesDir,myrouter} = require('./router_core');
+
+var router=myrouter();
 //router skeleton instance use itself recursively ?
 router.use('/', require('./index1.js'));
 router.use('/', require('./index2.js'));
-
-//=== 
-/* RangeError: Maximum call stack size exceeded
-    at next (c:\workspaces\mynodegit\node_modules\express\lib\router\index.js:260:14)
-    at Layer.handle_error (c:\workspaces\mynodegit\node_modules\express\lib\router\layer.js:67:12)
-    at trim_prefix (c:\workspaces\mynodegit\node_modules\express\lib\router\index.js:315:13)
-    at c:\workspaces\mynodegit\node_modules\express\lib\router\index.js:284:7
-*/
 
 //==================
 

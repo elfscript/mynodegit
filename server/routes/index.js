@@ -5,16 +5,19 @@ const myutil =require("../../myutil");
 const {routerxxx, gitReposDir, notesDir,myrouter} = require('./router_core');
 
 var router=myrouter();
-//router skeleton instance use itself recursively ?
+//routerxxx is the skeleton instance 
+//myrouter() will create a new instance 
 router.use('/', require('./index1.js'));
 router.use('/', require('./index2.js'));
+router.use('/', require('./index3.js'));
+
 
 //==================
 
 
 /**
  * @swagger
- * definition:
+ * definitions:
  *   IndexEntry:
  *     properties:
  *       id:

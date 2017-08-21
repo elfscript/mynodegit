@@ -1,5 +1,5 @@
 const Git = require("nodegit");
-const {router, gitServerDir, notesDir}= require('./router_core');
+const {router, gitReposDir, notesDir}= require('./router_core');
 const path = require("path");
 
 
@@ -7,7 +7,7 @@ const path = require("path");
 //===
 /**
  * @swagger
- * definition:
+ * definitions:
  *   Commit:
  *     properties:
  *       id:

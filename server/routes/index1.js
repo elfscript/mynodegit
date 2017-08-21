@@ -5,7 +5,7 @@ const {router, gitServerDir, notesDir}=require("./router_core");
 //===
 /**
  * @swagger
- * definition:
+ * definitions:
  *   Blob:
  *     properties:
  *       id:

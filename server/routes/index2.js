@@ -31,6 +31,12 @@ const path = require("path");
  *     description: Returns a commit from the given oid 
  *     produces:
  *       - application/json
+ *     parameters:
+ *       - name: id
+ *         description: commit id
+ *         in: path
+ *         required: true
+ *         type: string
  *     responses:
  *       200:
  *         description: commit info 

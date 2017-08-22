@@ -3,9 +3,9 @@ const bodyParser  = require('body-parser');
 const cors        = require('cors');
 const router = express.Router();
 
-router.use(cors());
-router.use(bodyParser.json());
-router.use(bodyParser.urlencoded({ extended: true }));
+//router.use(cors());
+//router.use(bodyParser.json());
+//router.use(bodyParser.urlencoded({ extended: true }));
 
 
 const gitReposDir = "/workspaces/mynodegit/gitRepos";

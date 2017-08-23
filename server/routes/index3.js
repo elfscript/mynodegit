@@ -13,8 +13,10 @@ var fse = promisify(require("fs-extra"));
  *       - add a new file
  *     description: Returns blob content
  *     produces:
- *       - application/json
  *       - plain/text 
+ *     consumes": 
+ *       - plain/text
+ *       - application/xml
  *     parameters:
  *       - name: dirName
  *         description: dirName for the newly added file
@@ -28,8 +30,9 @@ var fse = promisify(require("fs-extra"));
  *         type: string
  *       - name: body
  *         in: body
+ *         required: true
  *         description: file content to be added
- *         schema: 
+ *         schema:
  *           type: string 
  *     responses:
  *       200:

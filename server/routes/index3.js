@@ -33,7 +33,7 @@ var fse = promisify(require("fs-extra"));
  *         required: true
  *         description: file content to be added
  *         schema:
- *           type: string 
+ *           type: object 
  *     responses:
  *       200:
  *         description: new filename

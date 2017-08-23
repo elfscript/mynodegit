@@ -4,7 +4,7 @@ const cors        = require('cors');
 const router = express.Router();
 
 //router.use(cors());
-//router.use(bodyParser.json());
+router.use(bodyParser.json());
 //router.use(bodyParser.urlencoded({ extended: true }));
 
 
@@ -16,8 +16,9 @@ const myrouter=function(opts){
 	let arouter = express.Router(opts);
 
 	arouter.use(cors());
-	arouter.use(bodyParser.json());
-	arouter.use(bodyParser.urlencoded({ extended: true }));
+	//arouter.use(bodyParser.json());
+	//arouter.use(bodyParser.urlencoded({ extended: true }));
+        arouter.use(bodyParser.text());
 	return arouter;
 }
 

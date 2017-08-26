@@ -10,9 +10,14 @@ function mytreefind(tree,linux_fname){
 
 	var walker = tree.walk(false);
 	walker.on("entry", entry => {
-			if(entry.isTree())   console.log(entry.path() + " is a tree");
-			else if(entry.isBlob()) console.log(entry.path() + " is a blob");
-			//j_entries=finalEntries.map( entry=>{ return {name:entry.path(), oid:entry.oid()}; });
+			if(linux_fname == entry.path() ) {
+			console.log("got " + linux_fname);
+			//walker.free();	
+			tree.free();
+			//neither will stop the walking ???
+			} else {
+			console.log(entry.path());
+			}
 			});
 	walker.start();
 
@@ -118,7 +123,26 @@ function test3(){
 }
 
 
+//===
+function test4(){
+	const fname="f33.txt";
+	const dirName= "cat33";
+	var _repo,_oid,_index, _fileContent;
+	var oidStr;
+	var repoDirName=path.resolve(notesDir);
+	console.log("noteDir resolved to " + repoDirName);
+	var linux_fname=path.join(dirName, fname).replace("/\\/g", "/");
+
+	Git.Repository.open(repoDirName)
+		.then(function(repo) {
+				return repo.getMasterCommit();
+				}).then(function(firstCommitOnMaster) {
+					return firstCommitOnMaster.getTree(); 
+					}).then(function(tree) {
+						mytreefind(tree, linux_fname);
+						}).catch(err=> console.log(err));
+}
 
 
 //===
-test3();
+test4();

@@ -11,10 +11,11 @@ function mytreefind(tree,linux_fname, res, cb){
 	walker.on("entry", entry => {
 			if(linux_fname == entry.path() ) {
 			console.log("got " + linux_fname);
-			//cb({"content": entry.getBlob()}, res);
+			//rm listeners before cb()
+			walker.removeAllListeners();
+
 			entry.getBlob().then(blob => 
 				{
-				walker.removeAllListeners();
 				tree.free();
 				//walker.free();
 				//neither will stop the walking ???

@@ -9,10 +9,12 @@ const {router, gitReposDir, notesDir}=require("./router_core");
 function mytreefind(tree,linux_fname){
 
 	var walker = tree.walk(false);
+        console.log("tree.walk(), how to change the walking order ? ");
 	walker.on("entry", entry => {
 			if(linux_fname == entry.path() ) {
 			console.log("got " + linux_fname);
-			//walker.free();	
+			//walker.free(); 
+                        walker.removeAllListeners();	
 			tree.free();
 			//neither will stop the walking ???
 			} else {
@@ -125,8 +127,8 @@ function test3(){
 
 //===
 function test4(){
-	const fname="f33.txt";
-	const dirName= "cat33";
+	const fname="test2.txt";
+	const dirName= "cat22";
 	var _repo,_oid,_index, _fileContent;
 	var oidStr;
 	var repoDirName=path.resolve(notesDir);

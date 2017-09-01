@@ -120,7 +120,7 @@ router.post('/add/:dirName/:fname', add_commit);
 /**
  * @swagger
  * /api/update/{dirName}/{fname}?msg={msg}:
- *   post:
+ *   put:
  *     tags:
  *       - update an existing file
  *     description: Returns new blob id, commit id
@@ -154,19 +154,7 @@ router.post('/add/:dirName/:fname', add_commit);
  *         schema:
  *            type: object 
  */
-router.post('/update/:dirName/:fname', add_commit);
+router.put('/update/:dirName/:fname', add_commit);
 
-
-router.delete('/note/', (req, res) => {
-		const deletedNoteDataId = req.body.id;
-		db.collection('notes')
-		.remove({ id: deletedNoteDataId }, (err, result) => {
-			if (err) {
-			console.log('error ', err);
-			} else {
-			res.json(result);
-			}
-			});
-		});
 
 module.exports = router;

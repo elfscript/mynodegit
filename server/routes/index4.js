@@ -53,10 +53,10 @@ function core(repoDir, linux_fname, res){
 //===
 /**
  * @swagger
- * /api/edit/{dirName}/{fname}:
+ * /api/view/{dirName}/{fname}:
  *   get:
  *     tags:
- *       - edit an existing file
+ *       - view an existing file
  *     description: Returns the existing file content
  *     produces:
  *       - application/json 
@@ -80,7 +80,7 @@ function core(repoDir, linux_fname, res){
  *         schema:
  *            type:  object
  */
-router.get('/edit/:dirName/:fname', (req, res) => {
+router.get('/view/:dirName/:fname', (req, res) => {
 		const fname=req.params.fname;
 		var dirName=req.params.dirName; 
 		if(dirName) dirName= dirName.trim();
@@ -98,10 +98,10 @@ router.get('/edit/:dirName/:fname', (req, res) => {
 //===
 /**
  * @swagger
- * /api/edit/{fname}:
+ * /api/view/{fname}:
  *   get:
  *     tags:
- *       - edit an existing file
+ *       - view an existing file
  *     description: Returns the existing file content
  *     produces:
  *       - application/json 
@@ -120,7 +120,7 @@ router.get('/edit/:dirName/:fname', (req, res) => {
  *         schema:
  *            type:  object
  */
-router.get('/edit/:fname', (req, res) => {
+router.get('/view/:fname', (req, res) => {
 		const fname=req.params.fname;
 		var linux_fname= fname.replace("/\\/g", "/");
 		var repoDirName=path.resolve(notesDir);

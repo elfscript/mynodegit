@@ -10,6 +10,8 @@ var router=myrouter();
 router.use('/', require('./index1.js'));
 router.use('/', require('./index2.js'));
 router.use('/', require('./index3.js'));
+router.use('/', require('./index4.js'));
+router.use('/', require('./index5.js'));
 
 
 //==================

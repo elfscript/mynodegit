@@ -5,11 +5,11 @@ var _hisArr=[];
 var _hiscount=0;
 
 function mytreefind(tree,linux_fname, cmt, cb){
-        var fname=path.normalize(linux_fname);
+	var fname=path.normalize(linux_fname);
 	var walker = tree.walk(true);// true to ignore tree, only blob
 	walker.on("entry", entry => {
 			if( fname == entry.path() ) {
-                        //entry.path() gives windows separator on win7
+			//entry.path() gives windows separator on win7
 			console.log("got " + fname);
 			//rm listeners before cb()
 			walker.removeAllListeners();
@@ -18,7 +18,7 @@ function mytreefind(tree,linux_fname, cmt, cb){
 				{
 				tree.free(); //cannot stop tree walking ?
 				_hiscount++;
-				cb({"id": _hiscount, "content": blob.toString(), "fname": linux_fname, "blobid":blob.id().toString(),"cmtid":cmt.id().toString()}, null);
+				cb({"id": _hiscount, "content": blob.toString(), "fname": linux_fname, "blobid":blob.id().toString(),"cmtid":cmt.id().toString(), "cmt_time":cmt.timeMs()}, null);
 				walker.free();
 				});
 
@@ -36,8 +36,8 @@ function mytreefind(tree,linux_fname, cmt, cb){
 function core(cmt, linux_fname,xxx){
 	const cb= function(o,xxx){ 
 		console.log("cb done: " + _hiscount); 
-		var jstr=JSON.stringify(o); 
-		_hisArr.push(jstr);
+		//var jstr=JSON.stringify(o); 
+		_hisArr.push(o);
 	};
 
 	cmt.getTree().then(function(tree) {
@@ -46,6 +46,31 @@ function core(cmt, linux_fname,xxx){
 
 }
 
+
+
+
+//=== 
+// {"id": _hiscount, "content": blob.toString(), "fname": linux_fname, "blobid":blob.id().toString(),"cmtid":cmt.id().toString(), "cmt_time":cmt.timeMs()}
+
+
+function compareFunc(a,b){
+	return a.cmt_time - b.cmt_time;
+}
+
+
+function uniqBy(a, key) { 
+	var seen = {}; 
+	return a.filter(function(item) { 
+			var k = key(item); 
+			return seen.hasOwnProperty(k) ? false : (seen[k] = true); 
+			});
+}
+
+
+function sortUniq(arr){
+	arr=	arr.sort(compareFunc);
+	return uniqBy(arr, o=>{return o.blobid}); 
+}
 
 
 
@@ -112,7 +137,8 @@ router.get('/gitlog/:fname', (req, res) => {
 
 				history.on("end", function() {
 					history.removeAllListeners();
-					res.json(_hisArr);
+					res.json( sortUniq(_hisArr) );
+					//res.json(_hisArr);
 					});
 				// Don't forget to call `start()`!
 				history.start();

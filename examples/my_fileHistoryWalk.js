@@ -10,16 +10,17 @@ function mytreefind(tree,linux_fname, res, cb){
 	var walker = tree.walk(true);// true to ignore tree, only blob 
 	walker.on("entry", entry => {
 			if(linux_fname == entry.path() ) {
+			//cat33/f33.txt == cat33\f33.txt ???
 			console.log("got " + linux_fname);
 			//rm listeners before cb()
 			walker.removeAllListeners();
-   			//getBlob() has to be done before walker.free()
+			//getBlob() has to be done before walker.free()
 			entry.getBlob().then(blob =>
 				{
 				tree.free(); //cannot stop tree walking ?
 				cb({"content": blob.toString()}, res);
+				walker.free();
 				});
-			walker.free();
 
 			}else {
 			//console.log(entry.path());
@@ -42,7 +43,8 @@ function core(cmt, linux_fname, res){
 }
 
 var dirName="cat33", fname="f33.txt";
-var linux_fname=path.join(dirName, fname).replace("/\\/g", "/");
+//var linux_fname="cat33\\f33.txt"; //path.join(dirName, fname).replace("/\\/g", "/");
+var linux_fname=path.join(dirName, fname);
 var repoDirName=path.resolve(notesDir);
 console.log("noteDir resolved to " + repoDirName);
 console.log("dirName/fname resolved to " + linux_fname);

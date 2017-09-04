@@ -5,12 +5,12 @@ const {router, gitReposDir, notesDir}=require("./router_core");
 
 
 function mytreefind(tree,linux_fname, res, cb){
-
+        var fname=path.normalize(linux_fname);
 	var walker = tree.walk(false);
 	console.log("tree.walk(), how to change the walking order ? ");
 	walker.on("entry", entry => {
-			if(linux_fname == entry.path() ) {
-			console.log("got " + linux_fname);
+			if(fname == entry.path() ) {
+			console.log("got " + fname);
 			//rm listeners before cb()
 			walker.removeAllListeners();
 
@@ -87,7 +87,7 @@ router.get('/view/:dirName/:fname', (req, res) => {
 		else dirName="";
 
 		if(dirName== "." || dirName=="/") dirName="";
-		var linux_fname=path.join(dirName, fname).replace("/\\/g", "/");
+		var linux_fname=path.join(dirName, fname).replace(/\\/g, "/");
 		var repoDirName=path.resolve(notesDir);
 		console.log("noteDir resolved to " + repoDirName);
 		console.log("dirName/fname resolved to " + linux_fname);
@@ -122,7 +122,7 @@ router.get('/view/:dirName/:fname', (req, res) => {
  */
 router.get('/view/:fname', (req, res) => {
 		const fname=req.params.fname;
-		var linux_fname= fname.replace("/\\/g", "/");
+		var linux_fname= fname.replace(/\\/g, "/");
 		var repoDirName=path.resolve(notesDir);
 		console.log("noteDir resolved to " + repoDirName);
 		console.log("dirName/fname resolved to " + linux_fname);

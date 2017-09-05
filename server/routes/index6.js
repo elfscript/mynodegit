@@ -1,6 +1,8 @@
 const path=require("path");
 const Git = require("nodegit");
 const {router, gitReposDir, notesDir}=require("./router_core");
+const myutil=require("./myutil.js");
+
 var _hisArr=[];
 var _hiscount=0;
 
@@ -53,9 +55,14 @@ function core(cmt, linux_fname,xxx){
 // {"id": _hiscount, "content": blob.toString(), "fname": linux_fname, "blobid":blob.id().toString(),"cmtid":cmt.id().toString(), "cmt_time":cmt.timeMs()}
 
 
-function compareFunc(a,b){
+function compare_asc(a,b){
 	return a.cmt_time - b.cmt_time;
 }
+
+function compare_desc(a,b){
+	return b.cmt_time - a.cmt_time;
+}
+
 
 
 function uniqBy(a, key) { 
@@ -68,8 +75,8 @@ function uniqBy(a, key) {
 
 
 function sortUniq(arr){
-	arr=	arr.sort(compareFunc);
-	return uniqBy(arr, o=>{return o.blobid}); 
+	arr=	arr.sort(compare_asc);
+	return uniqBy(arr, o=>{return o.blobid}).sort(compare_desc).map((item,i,arr)=>{item.cmt_time_fmt=myutil.timestamp2DateString(item.cmt_time); return item;}); 
 }
 
 

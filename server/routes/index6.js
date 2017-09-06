@@ -5,6 +5,7 @@ const myutil=require("./myutil.js");
 
 var _hisArr=[];
 var _hiscount=0;
+var _cmtArr=[];
 
 function mytreefind(tree,linux_fname, cmt, cb){
 	var fname=path.normalize(linux_fname);
@@ -13,6 +14,7 @@ function mytreefind(tree,linux_fname, cmt, cb){
 			if( fname == entry.path() ) {
 			//entry.path() gives windows separator on win7
 			console.log("got " + fname);
+			console.log("fileMode " +  entry.filemode());
 			//rm listeners before cb()
 			walker.removeAllListeners();
 			//getBlob() has to be done before walker.free()
@@ -21,7 +23,7 @@ function mytreefind(tree,linux_fname, cmt, cb){
 				tree.free(); //cannot stop tree walking ?
 				_hiscount++;
 				cb({"id": _hiscount, "content": blob.toString(), "fname": linux_fname, "blobid":blob.id().toString(),"cmtid":cmt.id().toString(), "cmt_time":cmt.timeMs()}, null);
-				walker.free();
+				walker.free(); //has to be placed after cb()
 				});
 
 			}else {
@@ -76,9 +78,30 @@ function uniqBy(a, key) {
 
 function sortUniq(arr){
 	arr=	arr.sort(compare_asc);
-	return uniqBy(arr, o=>{return o.blobid}).sort(compare_desc).map((item,i,arr)=>{item.cmt_time_fmt=myutil.timestamp2DateString(item.cmt_time); return item;}); 
+	return uniqBy(arr, o=>{return o.blobid}).map((item,i,arr)=>{item.cmt_time_fmt=myutil.timestamp2DateString(item.cmt_time); return item;}); 
 }
 
+function sort2detect(repo, arr){
+	arr=arr.sort(compare_desc);
+	var j=0;
+	var item=arr[j];
+	Commit.lookup(repo, item.cmtid).then(cmt =>{
+			var bContinuous=false;
+			var parentid=0;
+			for(var i=0; i< cmt.parentcount(); i++){
+			if(arr[j+1].cmtid == cmt.parentId(i).toString()){ 
+			parentidStr=arr[j+1].cmtid; 
+			bContinuous= true; break;
+			}
+			}
+			if(bContinous) return Commit.lookup(repo,parentidStr);
+			else {		var history = cmt.history(Git.Revwalk.SORT.Time);
+			history.on("commit", function(commit) {});
+
+			}
+			}); 
+
+}
 
 
 

@@ -22,7 +22,7 @@ function mytreefind(tree,linux_fname, cmt, cb){
 				{
 				tree.free(); //cannot stop tree walking ?
 				_hitCount++;
-				cb({"hit_count": _hitCount, "content": blob.toString(), "fname": linux_fname, "blobid":blob.id().toString(),"cmtid":cmt.id().toString(), "cmt_time":cmt.timeMs()}, null);
+				cb({"hit_count": _hitCount, "content": blob.toString(), "fname": linux_fname, "blobid":blob.id(),"cmtid":cmt.id(), "cmt_time":cmt.timeMs()}, null);
 				walker.free(); //has to be placed after cb()
 				});
 
@@ -82,6 +82,10 @@ function sortUniq(arr){
 	return uniqBy(arr, o=>{return o.blobid}).map((item,i,arr)=>{item.cmt_time_fmt=myutil.timestamp2DateString(item.cmt_time); return item;}); 
 }
 
+
+
+var _cmt_dels=[];
+
 function sort2detect(repo, arr){
 	arr=arr.sort(compare_desc);
 	var j=0;
@@ -89,18 +93,29 @@ function sort2detect(repo, arr){
 	Commit.lookup(repo, item.cmtid).then(cmt =>{
 			var bContinuous=false;
 			var parentid=0;
+			var prevItem=arr[j+1];
 			for(var i=0; i< cmt.parentcount(); i++){
-			if(arr[j+1].cmtid == cmt.parentId(i).toString()){ 
-			parentidStr=arr[j+1].cmtid; 
+			if(prevItem.cmtid == cmt.parentId(i)){ 
 			bContinuous= true; break;
 			}
 			}
-			if(bContinous) return Commit.lookup(repo,parentidStr);
-			else {		var history = cmt.history(Git.Revwalk.SORT.Time);
-			history.on("commit", function(commit) {});
 
+			if(bContinous) return Commit.lookup(repo,prevItem.cmtid);
+			else {
+			var k=prevItem.cmt_count-1;
+			var candCmt=_cmtArr[k];
+			do{
+			bContinuous=false; 
+			for(var i=0; i< cmt.parentcount(); i++){
+			if(prevItem.cmtid == candCmt.parentId(i)){ 
+			bContinuous= true; break;
 			}
-			}); 
+			}
+			if(bContinous) { _cmt_dels.push(candCmt); break;} 
+			else {k--; candCmt=_cmtArr[k];}
+			}while(true);	
+			}
+	}); 
 
 }
 
@@ -155,7 +170,6 @@ router.get('/gitlog/:fname', (req, res) => {
 
 				// History emits "commit" event for each commit in the branch's history
 				history.on("commit", function(commit) {
-					i++;
 					console.log(i);
 					console.log("commit " + commit.sha());
 					//      console.log("Author:", commit.author().name() +
@@ -163,7 +177,7 @@ router.get('/gitlog/:fname', (req, res) => {
 					//      console.log("Date:", commit.date());
 					//      console.log("\n    " + commit.message());
 					_cmtArr.push(commit);
-					core(commit, linux_fname, res);
+					core(commit, linux_fname, i++);
 					});
 
 

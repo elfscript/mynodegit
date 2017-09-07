@@ -35,6 +35,7 @@ function mytreefind(tree,linux_fname, cmt, cb){
 }
 
 
+var _promises=[];
 
 //===
 function core(cmt, linux_fname, cmt_count){
@@ -45,9 +46,9 @@ function core(cmt, linux_fname, cmt_count){
 		_hitArr.push(o);
 	};
 
-	cmt.getTree().then(function(tree) {
-			mytreefind(tree, linux_fname, cmt,cb);
-			}).catch(err=> console.log(err));
+	_promises.push( cmt.getTree().then(function(tree) {
+				mytreefind(tree, linux_fname, cmt,cb);
+				}).catch(err=> console.log(err)) );
 
 }
 
@@ -78,6 +79,8 @@ function uniqBy(a, key) {
 
 
 function sortUniq(arr){
+	console.log("sortUniq(arr) ...");
+
 	arr=	arr.sort(compare_asc);
 	return uniqBy(arr, o=>{return o.blobid}).map((item,i,arr)=>{item.cmt_time_fmt=myutil.timestamp2DateString(item.cmt_time); return item;}); 
 }
@@ -88,45 +91,56 @@ var _cmt_dels=[];
 
 
 function detect(repo, arr,j){
-	var item=arr[j];
-        console.log("j=" + j);
-	return	Commit.lookup(repo, item.cmtid).then(cmt =>{
-			var bContinuous=false;
-			var parentid=0;
-			var prevItem=arr[j+1];
-			for(var i=0; i< cmt.parentcount(); i++){
-			if(prevItem.cmtid == cmt.parentId(i)){ 
-			bContinuous= true; break;
-			}
-			}
+	console.log("detect(arr,j) ..." + j);
 
-			if(bContinous) return detect(repo,arr, j+1);
-			else {
-			var k=prevItem.cmt_count-1;
-			var candCmt=_cmtArr[k];
-			do{
+	if(j >= (arr.length -1)) return;
+
+	var item=arr[j];
+	console.log("j=" + j);
+	var cmt= _cmtArr[item.cmt_count];
+
+	var bConti=false;
+	var parentid=0;
+	var prevItem=arr[j+1];
+	for(var i=0; i< cmt.parentcount(); i++){
+		if(prevItem.cmtid.equal( cmt.parentId(i))){ 
+			bConti= true; break;
+		}
+	}
+
+	if(bConti) {
+		return detect(repo,arr, j+1);
+	} else {
+		var k=prevItem.cmt_count-1;
+		var candCmt=_cmtArr[k];
+		do{
 			console.log("k= " + k);
-			console.log("candCmt.id(), " + candCmt.id());
-			bContinuous=false; 
+			console.log("candCmt.id(),  " + candCmt.id());
+			console.log("prevItem.cmtid, "+ prevItem.cmtid);
+			bConti=false; 
 			for(var i=0; i< cmt.parentcount(); i++){
-			if(prevItem.cmtid == candCmt.parentId(i)){ 
-			bContinuous= true; break;
+				console.log("candCmt.parentId(i), " + candCmt.parentId(i) );
+				if(prevItem.cmtid.equal( candCmt.parentId(i)) ){ 
+					bConti= true; break;
+				}
 			}
+			if(bConti) { _cmt_dels.push({"cmt": candCmt, "cmt_count":k}); break;} 
+			else { //shd not happen
+				k--; candCmt=_cmtArr[k];
 			}
-			if(bContinous) { _cmt_dels.push(candCmt); break;} 
-			else {k--; candCmt=_cmtArr[k];}
-			}while(k>0);	
-	                return detect(repo, arr, j+1); 
-			}
-	}); 
+		}while(k>0);	
+		return detect(repo, arr, j+1); 
+	}
+
 
 }
 
 
 function sort2detect(repo, arr){
+	console.log("sort2detect() ...");
 	arr=arr.sort(compare_desc);
 	var j=0;
-        return	detect(repo, arr,j);
+	return	detect(repo, arr,j);
 }
 
 /**
@@ -155,6 +169,8 @@ router.get('/gitlog/:fname', (req, res) => {
 		_hitArr=[];
 		_cmtArr=[];
 		_hitCount=0;
+		_promises=[];
+
 		var fname =decodeURIComponent( req.params.fname);
 
 		var repoDirName=path.resolve(notesDir);
@@ -170,10 +186,10 @@ router.get('/gitlog/:fname', (req, res) => {
 		var i=0;
 		var _repo;
 		Git.Repository.open(repoDirName)
-		.then(function(repo) {
-			_repo=repo;
-			return repo.getMasterCommit();
-			})
+			.then(function(repo) {
+					_repo=repo;
+					return repo.getMasterCommit();
+					})
 		.then(function(firstCommitOnMaster){
 				// History returns an event.
 				var history = firstCommitOnMaster.history(Git.Revwalk.SORT.Time);
@@ -193,15 +209,19 @@ router.get('/gitlog/:fname', (req, res) => {
 
 				history.on("end", function() {
 					history.removeAllListeners();
-					var sortedArr=sortUniq(_hitArr);
-					sort2detect(_repo, sortedArr, 0).then(function(){
+					Promise.all(_promises).then(function(){  
+						var sortedArr=sortUniq(_hitArr);
+						sort2detect(_repo, sortedArr, 0);
 						for(var i=0; i< _cmt_dels.length; i++){
 						sortedArr.push(
-							{"hit_count": -1, "content": null, "fname": linux_fname, "blobid":"", "cmtid":_cmt_dels[i].id(), "cmt_time":_cmt_dels[i].timeMs(), "cmt_time_fmt": myutil.timestamp2DateString(_cmt_dels[i].timeMs()) });
+							{"cmt_count":_cmt_dels[i].cmt_count, "hit_count": -1, "content": null, "fname": linux_fname, "blobid":"", "cmtid":_cmt_dels[i].cmt.id(), "cmt_time":_cmt_dels[i].cmt.timeMs(), "cmt_time_fmt": myutil.timestamp2DateString(_cmt_dels[i].cmt.timeMs()) });
+						console.log("_cmt_dels[i], i=" + i);						
+
 						}
-						res.json( sortedArr.sort(compare_desc) );
-						});
-					});
+						res.json( JSON.stringify(sortedArr.sort(compare_desc)) );
+
+						});	
+				});
 				// Don't forget to call `start()`!
 				history.start();
 		})

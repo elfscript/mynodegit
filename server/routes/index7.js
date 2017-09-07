@@ -55,7 +55,7 @@ function core(cmt, linux_fname, cmt_count){
 
 
 //=== 
-// {"id": _hitCount, "content": blob.toString(), "fname": linux_fname, "blobid":blob.id().toString(),"cmtid":cmt.id().toString(), "cmt_time":cmt.timeMs()}
+// {"hit_count": _hitCount, "content": blob.toString(), "fname": linux_fname, "blobid":blob.id().toString(),"cmtid":cmt.id(), "cmt_time":cmt.timeMs()}
 
 
 function compare_asc(a,b){
@@ -86,11 +86,11 @@ function sortUniq(arr){
 
 var _cmt_dels=[];
 
-function sort2detect(repo, arr){
-	arr=arr.sort(compare_desc);
-	var j=0;
+
+function detect(repo, arr,j){
 	var item=arr[j];
-	Commit.lookup(repo, item.cmtid).then(cmt =>{
+        console.log("j=" + j);
+	return	Commit.lookup(repo, item.cmtid).then(cmt =>{
 			var bContinuous=false;
 			var parentid=0;
 			var prevItem=arr[j+1];
@@ -100,11 +100,13 @@ function sort2detect(repo, arr){
 			}
 			}
 
-			if(bContinous) return Commit.lookup(repo,prevItem.cmtid);
+			if(bContinous) return detect(repo,arr, j+1);
 			else {
 			var k=prevItem.cmt_count-1;
 			var candCmt=_cmtArr[k];
 			do{
+			console.log("k= " + k);
+			console.log("candCmt.id(), " + candCmt.id());
 			bContinuous=false; 
 			for(var i=0; i< cmt.parentcount(); i++){
 			if(prevItem.cmtid == candCmt.parentId(i)){ 
@@ -113,13 +115,19 @@ function sort2detect(repo, arr){
 			}
 			if(bContinous) { _cmt_dels.push(candCmt); break;} 
 			else {k--; candCmt=_cmtArr[k];}
-			}while(true);	
+			}while(k>0);	
+	                return detect(repo, arr, j+1); 
 			}
 	}); 
 
 }
 
 
+function sort2detect(repo, arr){
+	arr=arr.sort(compare_desc);
+	var j=0;
+        return	detect(repo, arr,j);
+}
 
 /**
  * @swagger
@@ -160,8 +168,10 @@ router.get('/gitlog/:fname', (req, res) => {
 		// This code walks the history of the master branch and prints results
 		// that look very similar to calling `git log` from the command line
 		var i=0;
+		var _repo;
 		Git.Repository.open(repoDirName)
 		.then(function(repo) {
+			_repo=repo;
 			return repo.getMasterCommit();
 			})
 		.then(function(firstCommitOnMaster){
@@ -183,8 +193,14 @@ router.get('/gitlog/:fname', (req, res) => {
 
 				history.on("end", function() {
 					history.removeAllListeners();
-					res.json( sortUniq(_hitArr) );
-					//res.json(_hitArr);
+					var sortedArr=sortUniq(_hitArr);
+					sort2detect(_repo, sortedArr, 0).then(function(){
+						for(var i=0; i< _cmt_dels.length; i++){
+						sortedArr.push(
+							{"hit_count": -1, "content": null, "fname": linux_fname, "blobid":"", "cmtid":_cmt_dels[i].id(), "cmt_time":_cmt_dels[i].timeMs(), "cmt_time_fmt": myutil.timestamp2DateString(_cmt_dels[i].timeMs()) });
+						}
+						res.json( sortedArr.sort(compare_desc) );
+						});
 					});
 				// Don't forget to call `start()`!
 				history.start();

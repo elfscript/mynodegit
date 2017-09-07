@@ -215,13 +215,12 @@ router.get('/gitlog/:fname', (req, res) => {
 						for(var i=0; i< _cmt_dels.length; i++){
 						sortedArr.push(
 							{"cmt_count":_cmt_dels[i].cmt_count, "hit_count": -1, "content": null, "fname": linux_fname, "blobid":"", "cmtid":_cmt_dels[i].cmt.id(), "cmt_time":_cmt_dels[i].cmt.timeMs(), "cmt_time_fmt": myutil.timestamp2DateString(_cmt_dels[i].cmt.timeMs()) });
-						console.log("_cmt_dels[i], i=" + i);						
-
+						console.log("_cmt_dels[i], i=" + i);				
 						}
-						res.json( JSON.stringify(sortedArr.sort(compare_desc)) );
+						res.json( sortedArr.sort(compare_desc).map(item =>{ return myutil.propToString(item)}) );
 
 						});	
-				});
+					});
 				// Don't forget to call `start()`!
 				history.start();
 		})

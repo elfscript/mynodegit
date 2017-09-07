@@ -93,9 +93,34 @@ function timestamp2DateString(UNIX_timestamp) {
     return time;
 }
 
+//======
+function objToString (obj) {
+    var str = '';
+    for (var p in obj) {
+        if (obj.hasOwnProperty(p)) {
+            str += p + ':' + obj[p] + '\n';
+        }
+    }
+    return str;
+}
+
+
+function propToString (obj) {
+    for (var p in obj) {
+        if (obj.hasOwnProperty(p)) {
+            if(obj[p]) obj[p]=obj[p].toString();
+        }
+    }
+   return obj;
+}
+
+
+
 //===
 module.exports={
 	rmdir:deleteFolderRecursive,
 	mv:p_mv_cp,
         timestamp2DateString:timestamp2DateString,
+        objToString:objToString,
+        propToString:propToString,
 }

@@ -81,27 +81,7 @@ function sortUniq(arr){
 	return uniqBy(arr, o=>{return o.blobid}).map((item,i,arr)=>{item.cmt_time_fmt=myutil.timestamp2DateString(item.cmt_time); return item;}); 
 }
 
-function sort2detect(repo, arr){
-	arr=arr.sort(compare_desc);
-	var j=0;
-	var item=arr[j];
-	Commit.lookup(repo, item.cmtid).then(cmt =>{
-			var bContinuous=false;
-			var parentid=0;
-			for(var i=0; i< cmt.parentcount(); i++){
-			if(arr[j+1].cmtid == cmt.parentId(i).toString()){ 
-			parentidStr=arr[j+1].cmtid; 
-			bContinuous= true; break;
-			}
-			}
-			if(bContinous) return Commit.lookup(repo,parentidStr);
-			else {		var history = cmt.history(Git.Revwalk.SORT.Time);
-			history.on("commit", function(commit) {});
 
-			}
-			}); 
-
-}
 
 
 

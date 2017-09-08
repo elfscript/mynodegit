@@ -9,10 +9,12 @@ var router=myrouter();
 //myrouter() will create a new instance 
 router.use('/', require('./index1.js'));
 router.use('/', require('./index2.js'));
-router.use('/', require('./index3.js'));
+//router.use('/', require('./index3.js'));
 router.use('/', require('./index4.js'));
 router.use('/', require('./index5.js'));
-router.use('/', require('./index6.js'));
+//router.use('/', require('./index6.js'));
+//router.use('/', require('./index7.js'));
+router.use('/', require('./index8.js'));
 
 
 //==================

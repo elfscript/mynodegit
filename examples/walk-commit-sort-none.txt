@@ -1,0 +1,385 @@
+1
+commit 1d081acdd86d1fe3b6fff866d2691046f484011f
+Author: 3hdeng <3hdeng@gmail.com>
+Date: 2017-09-08T08:09:43.000Z
+
+    routes/index8.js, _hitArr contains the items with matching fname, detect pitfalls among _hitArr to get _cmt_dels, then filter out duplicate items considering consecutive commits having the same blobid
+
+2
+commit a3c64ee10e99017291bedea533969fb43ddea582
+Author: 3hdeng <3hdeng@gmail.com>
+Date: 2017-09-07T04:58:40.000Z
+
+    myutil.js, propToString() to stringify every properties of an object
+
+3
+commit 66717456374c9a9764440ab1374c4deb85dade9d
+Author: 3hdeng <3hdeng@gmail.com>
+Date: 2017-09-07T04:31:16.000Z
+
+    res.json() or JSON.stringify() does not convert the 2nd level object to string, only {}
+
+4
+commit aad94ec1772c38bf93947a1f50e950e926d1b642
+Author: 3hdeng <3hdeng@gmail.com>
+Date: 2017-09-07T02:02:18.000Z
+
+    index7.js, remember all commits in  _cmtArr, use cmt_count to access the target cmt,...
+
+5
+commit a247bfa00d73b97bbaaf92bf631196f93cc47990
+Author: 3hdeng <3hdeng@gmail.com>
+Date: 2017-09-06T13:20:07.000Z
+
+    hard to detect file removal when considering branch/merge
+
+6
+commit 618704c7abe5454891c1189c940e9b78ab84dec1
+Author: 3hdeng <3hdeng@gmail.com>
+Date: 2017-09-06T12:18:56.000Z
+
+    index7.js, _hisArr -> _hitArr, _hiscount -> _hitCount; _cmtArr, cmt_count
+
+7
+commit a7e06a89c8cee0de02fff8b5e70fc9040264227b
+Author: 3hdeng <3hdeng@gmail.com>
+Date: 2017-09-06T11:48:07.000Z
+
+    try to find the pitfall/to detect where or when the file is removed
+
+8
+commit a137f34554fd05e1efbf59e252e5fb5f77416853
+Author: 3hdeng <3hdeng@gmail.com>
+Date: 2017-09-05T10:28:03.000Z
+
+    cp myutil.js from ../../
+
+9
+commit 8a859998339e99d59926228c04a556efc512a0db
+Author: 3hdeng <3hdeng@gmail.com>
+Date: 2017-09-05T10:26:02.000Z
+
+    filter out duplicated items by sortUniq()
+
+10
+commit 76eb602ea9dcde1d2170d4dbf29a01acae4c9204
+Author: 3hdeng <3hdeng@gmail.com>
+Date: 2017-09-04T12:19:57.000Z
+
+    try to rm duplicate items of the same blobid
+
+11
+commit a51adca9d243a2aa603f44683b55fb76c9dc79f9
+Author: 3hdeng <3hdeng@gmail.com>
+Date: 2017-09-04T07:28:42.000Z
+
+    path.normalize() to get os-specific path separator
+
+12
+commit 7f8045e590047b6bd18e6a8c159cde2cfe6f7733
+Author: 3hdeng <3hdeng@gmail.com>
+Date: 2017-09-04T07:27:13.000Z
+
+    tree.walk(), on entry --> entry.path() is os-dependent
+
+13
+commit 344fc5773cf7db2517ef9ba322c6b2e613c7ac37
+Author: 3hdeng <3hdeng@gmail.com>
+Date: 2017-09-04T07:10:24.000Z
+
+    test_tree.js
+
+14
+commit 7028202066234c15826a5a1e0d31baf3f7092881
+Author: 3hdeng <3hdeng@gmail.com>
+Date: 2017-09-04T06:53:50.000Z
+
+     s.replace("//g","") --> s.replace(//g, "")
+
+15
+commit 740e8e42a40333ef37f2c4d619f24fd43f9d114c
+Author: 3hdeng <3hdeng@gmail.com>
+Date: 2017-09-04T05:10:24.000Z
+
+    path.join().replace() == cat33\f33.txt but cat33/f33.txt !== cat33\f33.txt
+
+16
+commit 43362d9df7c1ee58d9fef9cbb23b0fbd1d5c8fd8
+Author: 3hdeng <3hdeng@gmail.com>
+Date: 2017-09-04T04:27:48.000Z
+
+    res.json() cannot be placed within onEntry or onCommit events; place walker.free() within getBlob().then()
+
+17
+commit bcd21cfba1f1326f4f51b159b833f51c853e9058
+Author: 3hdeng <3hdeng@gmail.com>
+Date: 2017-09-02T08:04:11.000Z
+
+    commit.parentcount(), normally 1; 0 for initial commit; many for branch merging
+
+18
+commit bf6eaf350bb701d89fe7b622b5c09e6a8bc26a1c
+Author: 3hdeng <3hdeng@gmail.com>
+Date: 2017-09-02T08:01:49.000Z
+
+    my_fileHistoryWalk.js, commit.history(), on commit --> cmt.getTree(), match file path in the tree
+
+19
+commit 57ee54bca1b8d58f45ffe4b69691c8b37899a4e6
+Author: 3hdeng <3hdeng@gmail.com>
+Date: 2017-09-01T09:27:18.000Z
+
+    by comparing the last two entries shaid to detect the end; having problem when only one entry is accumulated in the history array
+
+20
+commit 32368c4b630703ca08ea291095820d027c574dda
+Author: 3hdeng <3hdeng@gmail.com>
+Date: 2017-09-01T06:32:41.000Z
+
+    update by http put, server side still call add_commit
+
+21
+commit 730d4a785501bd245a98e49ff18b876b2328ac57
+Author: 3hdeng <3hdeng@gmail.com>
+Date: 2017-09-01T05:00:45.000Z
+
+    swagger delete: , router.delete() ; it is ok to use post, so what's the difference
+
+22
+commit 96ddd411577e97b924877af1cb32f6fd1ef7f436
+Author: 3hdeng <3hdeng@gmail.com>
+Date: 2017-08-31T10:14:21.000Z
+
+    update/add a file --> cp file content to server at the specified path, then add and commit
+
+23
+commit ee10642a154d8aa25c681c4f955073b9167ded68
+Author: 3hdeng <3hdeng@gmail.com>
+Date: 2017-08-29T09:30:04.000Z
+
+    tree.walk() test
+
+24
+commit 8068043a20eca2a8dd3ae35b715db8a05f99cc75
+Author: 3hdeng <3hdeng@gmail.com>
+Date: 2017-08-29T09:28:21.000Z
+
+    rm walker.listerners as soon as target entry is found; tree.free() after getBlob()
+
+25
+commit 41d6eaa9e02508ca68d419eb9827642891b7068b
+Author: 3hdeng <3hdeng@gmail.com>
+Date: 2017-08-29T09:22:18.000Z
+
+    /api/edit/:fname added; tree.free() within cb() ?
+
+26
+commit cdb4028c0504d3494f33a83cead0f4eb043cf29c
+Author: 3hdeng <3hdeng@gmail.com>
+Date: 2017-08-29T08:49:20.000Z
+
+    how to handle empty dirName in /api/edit/dirName/fname ?
+
+27
+commit 4000a4a1332cffb5cc4efc507add29c7a77c3fcb
+Author: 3hdeng <3hdeng@gmail.com>
+Date: 2017-08-26T14:24:17.000Z
+
+    how to stop walker?
+
+28
+commit abd050e3af115b119d546b10880bb1fcf4368b32
+Author: 3hdeng <3hdeng@gmail.com>
+Date: 2017-08-26T13:56:54.000Z
+
+    use tree.getEntry(filePath), do not use tree.entryByPath()
+
+29
+commit 1e9f5a2f802436eb310e6f20356b8dfa3918af4b
+Author: 3hdeng <3hdeng@gmail.com>
+Date: 2017-08-23T04:30:01.000Z
+
+    need bodyparser.json() to handle req.body
+
+30
+commit aab6bda6d1e60cbe35f14616d254a3ad4b3d0a4d
+Author: 3hdeng <3hdeng@gmail.com>
+Date: 2017-08-23T03:47:30.000Z
+
+    give up try on change body parameter content type, leave it always application/json, add a field 'content' to body for clear access of data
+
+31
+commit 5ad9322ba0cedd8cf7cf9fa7b29f4d795eddaf9e
+Author: 3hdeng <3hdeng@gmail.com>
+Date: 2017-08-22T03:58:27.000Z
+
+    add param for /api/commit/id, subrouter no need of bodyparser?
+
+32
+commit d98fc899307eb406fca481f055fc5c88d34cdc44
+Author: 3hdeng <3hdeng@gmail.com>
+Date: 2017-08-21T07:34:46.000Z
+
+    req.body is a json object, not string; _index.addByPath(fname)  need fname to be linux-style relative path
+
+33
+commit 646fa94badda4c4d1bb186453b6550847024f04b
+Author: 3hdeng <3hdeng@gmail.com>
+Date: 2017-08-16T07:31:07.000Z
+
+    old index0.js
+
+34
+commit 7900388373ab062bd35115ec6bd2b4af94f3bffe
+Author: 3hdeng <3hdeng@gmail.com>
+Date: 2017-08-16T07:30:45.000Z
+
+    commit new index0.js from index.js
+
+35
+commit 0b7a68702e03aa499cc3bd559f2a3d410eb9032e
+Author: 3hdeng <3hdeng@gmail.com>
+Date: 2017-08-16T07:28:50.000Z
+
+    require() return skeleton, i.e. sharing the same instance; to create new instance via require() has to export a function instead of the router instance
+
+36
+commit 27a87857c2b882a99828f1532c58ea43833c068c
+Author: 3hdeng <3hdeng@gmail.com>
+Date: 2017-08-16T05:05:09.000Z
+
+    test require(), export reference?
+
+37
+commit b07530f09c07beac2a9f3f00493bac01dedb2f20
+Author: 3hdeng <3hdeng@gmail.com>
+Date: 2017-08-14T13:51:49.000Z
+
+    repo.getBlob(oidStr).toString()
+
+38
+commit 402072563ea2e02e34c5b2f87f861ca20f520da3
+Author: 3hdeng <3hdeng@gmail.com>
+Date: 2017-08-14T08:34:25.000Z
+
+    try swagger spec on routes
+
+39
+commit e740d35b67507e5b6b86446f3ee57e0553d1fb21
+Author: 3hdeng <3hdeng@gmail.com>
+Date: 2017-08-14T07:26:27.000Z
+
+    express app route serving depends on the order appearing in the source code index.js; app.get('*', ) has to be placed as the last route?
+
+40
+commit 4c130c0d58f74ee062667b1c43fbd860c3288cd2
+Author: 3hdeng <3hdeng@gmail.com>
+Date: 2017-08-14T05:09:13.000Z
+
+    indexEntry.id.toString(), indexEntry.mtime.seconds()*1000
+
+41
+commit 4d16ef2e7dd1c05106eededa3b6c001a8cda6ec0
+Author: 3hdeng <3hdeng@gmail.com>
+Date: 2017-08-11T08:05:46.000Z
+
+    tree.path() always empty? indexentry's instance vars instead of methods
+
+42
+commit 0dd4a1fc340f985087a35ece331b56d72ec811d6
+Author: 3hdeng <3hdeng@gmail.com>
+Date: 2017-08-11T07:50:20.000Z
+
+    try to add a subfolder
+
+43
+commit d06ae62a3be9a60dba4426dafc48c0fbb272392e
+Author: 3hdeng <3hdeng@gmail.com>
+Date: 2017-08-11T03:07:39.000Z
+
+    tree.walk(blobonly?)
+
+44
+commit 30678200a38b4ab774241c652ccbbd6064ac8579
+Author: 3hdeng <3hdeng@gmail.com>
+Date: 2017-08-09T10:12:59.000Z
+
+    cp examples from nodegit
+
+45
+commit 39a8f71ea1844a56307fbb64e1467a5171c9bd8e
+Author: 3hdeng <3hdeng@gmail.com>
+Date: 2017-08-08T14:23:22.000Z
+
+    myutil.js, unix timestamp to dateString
+
+46
+commit a310ba1d844512fd22a03d61bdc108759775a921
+Author: 3hdeng <3hdeng@gmail.com>
+Date: 2017-08-08T14:22:11.000Z
+
+    walker=tree.walk(), walker.start(), how to then()? walker.on('end', cb)
+
+47
+commit 7df0972b4d65694251531be712a6f1790badcd08
+Author: 3hdeng <3hdeng@gmail.com>
+Date: 2017-08-08T04:06:55.000Z
+
+    try , open repo, refresh index, index.entries()
+
+48
+commit 0568a50dbe08058807005caf7f4a05a4dc7d8790
+Author: 3hdeng <3hdeng@gmail.com>
+Date: 2017-08-07T08:59:10.000Z
+
+    sort descendingly by mtime
+
+49
+commit 9b6ee8611032ea76dc74525e6927081cb24a9c60
+Author: 3hdeng <3hdeng@gmail.com>
+Date: 2017-08-07T07:19:43.000Z
+
+    try to list files by fse.readdir()
+
+50
+commit 40bbae81330201d9b1e7e9d34339a6f90183cf6c
+Author: 3hdeng <3hdeng@gmail.com>
+Date: 2017-08-04T09:28:02.000Z
+
+    sub_fullName, relative path in linux style, demo1/newfile.txt
+
+51
+commit 38d43cfee5a45104538273e8edaa4e7a60061a27
+Author: 3hdeng <3hdeng@gmail.com>
+Date: 2017-08-04T09:24:44.000Z
+
+    nodegit, index.addByPath need linux style relative path
+
+52
+commit a76242e6078a9f35bb914dd7243d6318ef1330df
+Author: 3hdeng <3hdeng@gmail.com>
+Date: 2017-06-23T12:50:03.000Z
+
+    try promise to move/rename folder
+
+53
+commit 263a6f22d0f74bf220df594529d5101efd47ccf6
+Author: 3hdeng <3hdeng@gmail.com>
+Date: 2017-06-23T07:44:59.000Z
+
+    subfolder under a git repo is not a git repo, usually
+
+54
+commit bf1213640d01c123a6fcd8b8c5c8e59c844cd020
+Author: 3hdeng <3hdeng@gmail.com>
+Date: 2017-06-21T15:06:31.000Z
+
+    mv Dockerfile_4.7 Dockerfile_4.8
+
+55
+commit 9cc352e0c4393fcbff1b166b13e4696b08c630f6
+Author: 3hdeng <3hdeng@gmail.com>
+Date: 2017-06-21T13:41:34.000Z
+
+    try nodegit
+

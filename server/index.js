@@ -8,7 +8,7 @@ const port= process.env.PORT || 3000; //require('../src/actions/apis').PORT;
 
 app.use(express.static('static'));
 
-app.use('/public', express.static(path.join(__dirname, '../public')));
+app.use(express.static(path.join(__dirname, '../public')));
 app.use('/api', routes);
 
 //=== swagger spec =====================
@@ -30,7 +30,7 @@ var options = {
   // import swaggerDefinitions
   swaggerDefinition: swaggerDefinition,
   // path to the API docs
-  apis: ['./routes/*.js'],
+  apis: ['./routes/index.js', './routes/index8.js'],
 };
 
 // initialize swagger-jsdoc
@@ -45,7 +45,7 @@ app.get('/swagger.json', function(req, res) {
 });
 
 
-app.get('*', function (request, response){ response.sendFile(path.resolve(__dirname, '../', 'index.html')) });
+app.get('*', function (request, response){ response.sendFile(path.resolve(__dirname, '../public', 'index.html')) });
 
 //=======================
 const server = app.listen(port, () => {

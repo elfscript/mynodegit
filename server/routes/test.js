@@ -4,13 +4,24 @@ const x1=require("./router_core");
 const x2=require("./router_core");
 console.log( x1==x2);
 console.log("x1==x2, " + (x1==x2).toString());
-console.log(x1.router);
+console.log(x1.routerxxx);
 
-var router1=x1.router;
-var router2=x2.router;
-console.log("router1==router2, "+ (router1==router2) );
+var router1=x1.routerxxx;
+var router2=x2.routerxxx;
+
+console.log("the same routerxxx, "+ (router1==router2) );
+
+var myrouter1=x1.myrouter;
+var myrouter2=x2.myrouter;
+
+console.log("the same myrouter, "+ (myrouter1==myrouter2) );
+
+//===
 
 
+
+
+//===
 obj1={k1:"v1", k2:"v2"};
 obj2={k1:"v1", k2:"v2"};
 console.log("obj1==obj2, " + (obj1==obj2));

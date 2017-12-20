@@ -18,14 +18,14 @@ const myrouter=function(opts){
 	arouter.use(cors());
 	//arouter.use(bodyParser.json());
 	//arouter.use(bodyParser.urlencoded({ extended: true }));
-        arouter.use(bodyParser.text());
+	arouter.use(bodyParser.text());
 	return arouter;
 }
 
 
 module.exports = {
-router:router,
-       gitReposDir: gitReposDir,
-       notesDir: notesDir,
-       myrouter: myrouter
+	routerxxx:router,
+	gitReposDir: gitReposDir,
+	notesDir: notesDir,
+	myrouter: myrouter
 };

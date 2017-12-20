@@ -1,8 +1,8 @@
 const Git = require("nodegit");
-const {router, gitReposDir, notesDir}= require('./router_core');
+const {routerxxx, gitReposDir, notesDir}= require('./router_core');
 const path = require("path");
 
-
+let router=routerxxx;
 
 //===
 /**

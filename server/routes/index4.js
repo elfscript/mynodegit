@@ -1,7 +1,7 @@
 const path=require("path");
 const Git = require("nodegit");
-const {router, gitReposDir, notesDir}=require("./router_core");
-
+const {routerxxx, gitReposDir, notesDir}=require("./router_core");
+let router=routerxxx;
 
 
 function mytreefind(tree,linux_fname, res, cb){

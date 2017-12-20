@@ -1,0 +1,572 @@
+{ info: 
+   { title: 'Node Swagger API',
+     version: '1.0.0',
+     description: 'Demonstrating how to describe a RESTful API with Swagger' },
+  host: 'localhost:3000',
+  basePath: '/',
+  swagger: '2.0',
+  paths: 
+   { '/api/indexentries': { get: [Object] },
+     '/api/add/{dirName}/{fname}?msg={msg}': { post: [Object] },
+     '/api/update/{dirName}/{fname}?msg={msg}': { put: [Object] },
+     '/api/gitlog/{fname}': { get: [Object] } },
+  definitions: { IndexEntry: { properties: [Object] } },
+  responses: {},
+  parameters: {},
+  securityDefinitions: {},
+  tags: [] }
+nodegit server running on  3000
+noteDir resolved to c:\workspaces\mynodegit\gitRepos\notes
+fname resolved to cat33\f33.txt
+1
+commit a01645d9c117d03ca663e163e0dd1767a10312e0
+getFileSize.sh
+getmtime.sh
+gitlog.js
+cat1\cat1_f1.txt
+cat22\test0822-1.txt
+cat22\test2.txt
+cat23\test1.txt
+cat30\f30.txt
+cat31\test31-0821.txt
+cat33\f33-1.txt
+got cat33\f33.txt
+fileMode 33188
+2
+commit b83e2325e48699e9526088000cbeb038ed5dc70b
+cb done: 1
+getFileSize.sh
+getmtime.sh
+gitlog.js
+cat1\cat1_f1.txt
+cat22\test0822-1.txt
+cat22\test2.txt
+cat23\test1.txt
+cat31\test31-0821.txt
+cat33\f33-1.txt
+got cat33\f33.txt
+fileMode 33188
+3
+commit ceab90a9c895035ac55a48a8640a256cce7bee4f
+cb done: 2
+getFileSize.sh
+getmtime.sh
+gitlog.js
+cat1\cat1_f1.txt
+cat22\test0822-1.txt
+cat22\test2.txt
+cat23\test1.txt
+cat31\test31-0821.txt
+cat33\f33-1.txt
+got cat33\f33.txt
+fileMode 33188
+4
+commit 1e6243ad4b56578ee0caa252ca92fa4a98971187
+cb done: 3
+getFileSize.sh
+getmtime.sh
+gitlog.js
+cat1\cat1_f1.txt
+cat22\test0822-1.txt
+cat22\test2.txt
+cat23\test1.txt
+cat31\test31-0821.txt
+cat33\f33-1.txt
+demo1\newfile.txt
+5
+commit 7d217e6962324a628009ece66a45db5b8934e126
+getFileSize.sh
+getmtime.sh
+gitlog.js
+cat0\cat0_f1.txt
+cat1\cat1_f1.txt
+cat22\test0822-1.txt
+cat22\test2.txt
+cat23\test1.txt
+cat31\test31-0821.txt
+cat33\f33-1.txt
+demo1\newfile.txt
+6
+commit 9e9d64150a2125e285cb8142ec7df21eb4ba9363
+getFileSize.sh
+getmtime.sh
+gitlog.js
+cat0\cat0_f1.txt
+cat1\cat1_f1.txt
+cat22\test0822-1.txt
+cat22\test2.txt
+cat23\test1.txt
+cat31\f31.txt
+cat31\test31-0821.txt
+cat33\f33-1.txt
+demo1\newfile.txt
+7
+commit b00ca86d7f59b24ccc15b59768eca04dec34a33c
+getFileSize.sh
+getmtime.sh
+gitlog.js
+cat0\cat0_f1.txt
+cat1\cat1_f1.txt
+cat22\test0822-1.txt
+cat22\test2.txt
+cat23\test1.txt
+cat31\f31.txt
+cat31\test31-0821.txt
+cat33\f33-1.txt
+got cat33\f33.txt
+fileMode 33188
+8
+commit 64c8badf732978401731244108097623f36fecdf
+cb done: 4
+getFileSize.sh
+getmtime.sh
+gitlog.js
+cat0\cat0_f1.txt
+cat1\cat1_f1.txt
+cat22\test0822-1.txt
+cat22\test2.txt
+cat23\test1.txt
+cat31\f31.txt
+cat31\test31-0821.txt
+cat33\f33-1.txt
+got cat33\f33.txt
+fileMode 33188
+9
+commit 44d6c0e364e6dc2c18685fd4ac435a082875ece4
+cb done: 5
+getFileSize.sh
+getmtime.sh
+gitlog.js
+cat0\cat0_f1.txt
+cat1\cat1_f1.txt
+cat22\test0822-1.txt
+cat22\test2.txt
+cat23\test1.txt
+cat31\f31.txt
+cat31\test31-0821.txt
+cat33\f33-1.txt
+got cat33\f33.txt
+fileMode 33188
+10
+commit 2d70e0741c8e7a9a11bce32c2261dfe9b1770e83
+cb done: 6
+getFileSize.sh
+getmtime.sh
+gitlog.js
+cat0\cat0_f1.txt
+cat1\cat1_f1.txt
+cat22\test0822-1.txt
+cat22\test2.txt
+cat23\test1.txt
+cat31\f31.txt
+cat31\test31-0821.txt
+cat33\f33-1.txt
+got cat33\f33.txt
+fileMode 33188
+11
+commit 23e7e44d19f2bb866e2e400ea01aebc8892d0b13
+cb done: 7
+getFileSize.sh
+getmtime.sh
+gitlog.js
+cat0\cat0_f1.txt
+cat1\cat1_f1.txt
+cat22\test0822-1.txt
+cat22\test2.txt
+cat23\test1.txt
+cat31\f31.txt
+cat31\test31-0821.txt
+cat33\f33-1.txt
+got cat33\f33.txt
+fileMode 33188
+12
+commit eb9a85c9279fc96efbb8f8e0a4e75e14933cbc70
+cb done: 8
+getFileSize.sh
+getmtime.sh
+gitlog.js
+cat0\cat0_f1.txt
+cat1\cat1_f1.txt
+cat22\test0822-1.txt
+cat22\test2.txt
+cat23\test1.txt
+cat31\f31.txt
+cat31\test31-0821.txt
+cat33\f33-1.txt
+got cat33\f33.txt
+fileMode 33188
+13
+commit 8307f4ca1e01ad574602e414e3d8b34bbb274f16
+cb done: 9
+getFileSize.sh
+getmtime.sh
+gitlog.js
+cat0\cat0_f1.txt
+cat1\cat1_f1.txt
+cat22\test0822-1.txt
+cat22\test2.txt
+cat23\test1.txt
+cat31\f31.txt
+cat31\test31-0821.txt
+cat33\f33-1.txt
+got cat33\f33.txt
+fileMode 33188
+14
+commit b365d0a70dd825772cd6293f3585214ca7dd32b8
+cb done: 10
+getFileSize.sh
+getmtime.sh
+gitlog.js
+cat0\cat0_f1.txt
+cat1\cat1_f1.txt
+cat22\test0822-1.txt
+cat22\test2.txt
+cat23\test1.txt
+cat31\f31.txt
+cat31\test31-0821.txt
+cat33\f33-1.txt
+got cat33\f33.txt
+fileMode 33188
+15
+commit 1e14022b1561781d60bd9d7c3e1c4d59bafb2674
+cb done: 11
+getFileSize.sh
+getmtime.sh
+gitlog.js
+cat0\cat0_f1.txt
+cat1\cat1_f1.txt
+cat22\test0822-1.txt
+cat22\test2.txt
+cat23\test1.txt
+cat31\f31.txt
+cat31\test31-0821.txt
+cat33\f33-1.txt
+got cat33\f33.txt
+fileMode 33188
+16
+commit d83a16d2144595075df84a79f1ca16936e0bc4c6
+cb done: 12
+getFileSize.sh
+getmtime.sh
+gitlog.js
+cat0\cat0_f1.txt
+cat1\cat1_f1.txt
+cat22\test0822-1.txt
+cat22\test2.txt
+cat23\test1.txt
+cat31\test31-0821.txt
+cat33\f33-1.txt
+got cat33\f33.txt
+fileMode 33188
+17
+commit d9a35c9a9e11232712898f5247ff8869fa3809d7
+cb done: 13
+getFileSize.sh
+getmtime.sh
+gitlog.js
+cat0\cat0_f1.txt
+cat1\cat1_f1.txt
+cat22\test0822-1.txt
+cat22\test2.txt
+cat23\test1.txt
+cat31\test31-0821.txt
+cat33\f33-1.txt
+got cat33\f33.txt
+fileMode 33188
+18
+commit 8ea1d5777e88f39eaa961e829501d82010f0b818
+cb done: 14
+getFileSize.sh
+getmtime.sh
+gitlog.js
+cat0\cat0_f1.txt
+cat1\cat1_f1.txt
+cat22\test0822-1.txt
+cat22\test2.txt
+cat23\test1.txt
+cat31\test31-0821.txt
+cat33\f33-1.txt
+got cat33\f33.txt
+fileMode 33188
+19
+commit 17cc56f0f16bf62400daad943a477b063b4063f6
+cb done: 15
+getFileSize.sh
+getmtime.sh
+gitlog.js
+cat0\cat0_f1.txt
+cat1\cat1_f1.txt
+cat22\test0822-1.txt
+cat22\test2.txt
+cat23\test1.txt
+cat31\test31-0821.txt
+cat33\f33-1.txt
+got cat33\f33.txt
+fileMode 33188
+20
+commit fcbaff88eda2c1c2e72c910c4b2808e1213165b2
+cb done: 16
+getFileSize.sh
+getmtime.sh
+gitlog.js
+cat0\cat0_f1.txt
+cat1\cat1_f1.txt
+cat22\test0822-1.txt
+cat22\test2.txt
+cat23\test1.txt
+cat31\test31-0821.txt
+got cat33\f33.txt
+fileMode 33188
+21
+commit 058a86bfdda3b4c1e4c7ae160c2c9eeeeb33e19c
+cb done: 17
+getFileSize.sh
+getmtime.sh
+gitlog.js
+cat0\cat0_f1.txt
+cat1\cat1_f1.txt
+cat22\test0822-1.txt
+cat22\test2.txt
+cat23\test1.txt
+cat31\test31-0821.txt
+demo1\newfile.txt
+22
+commit 65b9ba2cfb5ae4f28e2902c8d37e8fc0f6f5e5d9
+getFileSize.sh
+getmtime.sh
+gitlog.js
+cat0\cat0_f1.txt
+cat1\cat1_f1.txt
+cat22\test0822-1.txt
+cat22\test2.txt
+cat23\test1.txt
+cat31\test31-0821.txt
+demo1\newfile.txt
+23
+commit 43b0b97729836aaf21437f186fb94f5ecea3875c
+getFileSize.sh
+getmtime.sh
+gitlog.js
+cat0\cat0_f1.txt
+cat1\cat1_f1.txt
+cat22\test0822-1.txt
+cat22\test2.txt
+cat23\test1.txt
+cat31\test31-0821.txt
+demo1\newfile.txt
+24
+commit 8c330adfb7f0f8a606475173a1563a745985ef98
+getFileSize.sh
+getmtime.sh
+gitlog.js
+cat0\cat0_f1.txt
+cat1\cat1_f1.txt
+cat22\test0822-1.txt
+cat22\test2.txt
+cat23\test1.txt
+cat31\test31-0821.txt
+demo1\newfile.txt
+25
+commit a0cb40b28ff1ae0f6cd91b2b4d7c4357828bf408
+getFileSize.sh
+getmtime.sh
+gitlog.js
+cat0\cat0_f1.txt
+cat1\cat1_f1.txt
+cat22\test0822-1.txt
+cat22\test2.txt
+cat23\test1.txt
+cat31\test31-0821.txt
+demo1\newfile.txt
+26
+commit a1c1a773cf3b3ed67d1c47215be17ba029b1a631
+getFileSize.sh
+getmtime.sh
+gitlog.js
+cat0\cat0_f1.txt
+cat1\cat1_f1.txt
+cat22\test0822-1.txt
+cat22\test2.txt
+cat23\test1.txt
+cat31\test31-0821.txt
+demo1\newfile.txt
+27
+commit ae84a1bf32496ebf2b992cba0a03b78e4f4de4e7
+getFileSize.sh
+getmtime.sh
+gitlog.js
+cat0\cat0_f1.txt
+cat1\cat1_f1.txt
+cat22\test0822-1.txt
+cat22\test2.txt
+cat23\test1.txt
+cat31\test31-0821.txt
+demo1\newfile.txt
+28
+commit 1ead99a7334437ced96550163bd83bdd993c0e68
+getFileSize.sh
+getmtime.sh
+gitlog.js
+cat0\cat0_f1.txt
+cat1\cat1_f1.txt
+cat22\test0822-1.txt
+cat22\test2.txt
+cat23\test1.txt
+cat31\test31-0821.txt
+demo1\newfile.txt
+29
+commit 615c290c47f15e1ddbd3bb99891e1dea8243b172
+getFileSize.sh
+getmtime.sh
+gitlog.js
+cat0\cat0_f1.txt
+cat1\cat1_f1.txt
+cat22\test0822-1.txt
+cat22\test2.txt
+cat23\test1.txt
+cat31\test31-0821.txt
+demo1\newfile.txt
+30
+commit 5845427f29adef13efb8e653888489bb7236aa62
+getFileSize.sh
+getmtime.sh
+gitlog.js
+cat0\cat0_f1.txt
+cat1\cat1_f1.txt
+cat22\test0822-1.txt
+cat22\test2.txt
+cat23\test1.txt
+cat31\test31-0821.txt
+demo1\newfile.txt
+31
+commit 60d453e7b42c0a721395fa1fd80d4a5d3a35a771
+getFileSize.sh
+getmtime.sh
+gitlog.js
+cat0\cat0_f1.txt
+cat1\cat1_f1.txt
+cat22\test0822-1.txt
+cat22\test2.txt
+cat23\test1.txt
+cat31\test31-0821.txt
+demo1\newfile.txt
+32
+commit b04d762f5aec7e4aaf39312d96ba2a4921d5b7d4
+getFileSize.sh
+getmtime.sh
+gitlog.js
+cat0\cat0_f1.txt
+cat1\cat1_f1.txt
+cat22\test0822-1.txt
+cat22\test2.txt
+cat23\test1.txt
+cat31\test31-0821.txt
+demo1\newfile.txt
+33
+commit 79addccd7db5db6294d54e645ff35d65f6f82e5b
+getFileSize.sh
+getmtime.sh
+gitlog.js
+cat0\cat0_f1.txt
+cat1\cat1_f1.txt
+cat22\test0822-1.txt
+cat22\test2.txt
+cat23\test1.txt
+cat31\test31-0821.txt
+demo1\newfile.txt
+34
+commit a5c7d42855f2a8b7ff4d89902abf6b842e73a04d
+getFileSize.sh
+getmtime.sh
+gitlog.js
+cat0\cat0_f1.txt
+cat1\cat1_f1.txt
+cat22\test0822-1.txt
+cat22\test2.txt
+cat23\test1.txt
+cat31\test31-0821.txt
+demo1\newfile.txt
+35
+commit f696f0af6ab3e642d2395568fdfc05ffdd2d9eb5
+getFileSize.sh
+getmtime.sh
+gitlog.js
+cat0\cat0_f1.txt
+cat1\cat1_f1.txt
+cat22\test0822-1.txt
+cat22\test2.txt
+cat31\test31-0821.txt
+demo1\newfile.txt
+36
+commit 2f39b6df9b4a4a80b9b8380100271b50388811ae
+getFileSize.sh
+getmtime.sh
+gitlog.js
+cat0\cat0_f1.txt
+cat1\cat1_f1.txt
+cat22\test0822-1.txt
+cat22\test2.txt
+cat31\test31-0821.txt
+demo1\newfile.txt
+37
+commit e30d8260a428a7d5d57562c0fe95efbb98477177
+getFileSize.sh
+getmtime.sh
+gitlog.js
+cat0\cat0_f1.txt
+cat1\cat1_f1.txt
+cat22\test0822-1.txt
+cat31\test31-0821.txt
+demo1\newfile.txt
+38
+commit 6e61225790c753ad60071c1dfa218cfbc456a92f
+getFileSize.sh
+getmtime.sh
+gitlog.js
+cat0\cat0_f1.txt
+cat1\cat1_f1.txt
+cat31\test31-0821.txt
+demo1\newfile.txt
+39
+commit b9cd29f97385054baa340d191bd02e3c4b44e48f
+getFileSize.sh
+getmtime.sh
+gitlog.js
+cat0\cat0_f1.txt
+cat1\cat1_f1.txt
+cat31\test31-0821.txt
+demo1\newfile.txt
+40
+commit cda63490ed36dbcbf9b3fc80703f4f8fbfee9800
+getFileSize.sh
+getmtime.sh
+gitlog.js
+cat0\cat0_f1.txt
+cat1\cat1_f1.txt
+demo1\newfile.txt
+41
+commit a6e84ef8c8d4b698b233007a98f6b4adbeca4d95
+filea.txt
+getmtime.sh
+gitlog.js
+cat0\cat0_f1.txt
+cat1\cat1_f1.txt
+demo1\newfile.txt
+42
+commit 86ae5bb7f0a1511972c37ef5b8c563a215062775
+getmtime.sh
+cat0\cat0_f1.txt
+cat1\cat1_f1.txt
+demo1\newfile.txt
+43
+commit 33368a9a1166cdd8d6944b867e929fe0a5ae54a5
+cat0\cat0_f1.txt
+cat1\cat1_f1.txt
+demo1\newfile.txt
+44
+commit d08f4d11f39bbbba5d5cfb9c4795fe8f1e6d4121
+cat0\cat0_f1.txt
+demo1\newfile.txt
+45
+commit 9941ed68c8cdfcd302518c4cb5f1ec7bb78c2fa5
+demo1\newfile.txt

@@ -1,8 +1,9 @@
 const path=require("path");
 const Git = require("nodegit");
-const {router, gitReposDir, notesDir}=require("./router_core");
+const {routerxxx, gitReposDir, notesDir}=require("./router_core");
 //var promisify = require("promisify-node");
 //var fse = promisify(require("fs-extra"));
+let router=routerxxx;
 
 //===
 

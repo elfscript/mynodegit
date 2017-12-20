@@ -30,7 +30,7 @@ var options = {
   // import swaggerDefinitions
   swaggerDefinition: swaggerDefinition,
   // path to the API docs
-  apis: ['./routes/index.js', './routes/index8.js'],
+  apis: ['./routes/index1.js', './routes/index2.js'],
 };
 
 // initialize swagger-jsdoc

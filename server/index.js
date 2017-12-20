@@ -25,12 +25,17 @@ var swaggerDefinition = {
   basePath: '/',
 };
 
+console.log("__dirname=" + __dirname);
+console.log("path.resolve(__dirname) = " + path.resolve(__dirname));
+console.log("path.resolve(__dirname,'./routes/index*.js') = " + path.resolve(__dirname, './routes/index*.js'));
+
 // options for the swagger docs
 var options = {
   // import swaggerDefinitions
   swaggerDefinition: swaggerDefinition,
   // path to the API docs
-  apis: ['./routes/index1.js', './routes/index2.js'],
+apis: [path.resolve( __dirname, './routes/index*.js')] 
+	//, './routes/index2.js'],
 };
 
 // initialize swagger-jsdoc

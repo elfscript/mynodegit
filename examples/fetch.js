@@ -1,7 +1,7 @@
-var nodegit = require("../");
+var nodegit = require("nodegit");
 var path = require("path");
 
-nodegit.Repository.open(path.resolve(__dirname, "../.git"))
+nodegit.Repository.open(path.resolve(__dirname, "../gitRepos/notes/.git"))
   .then(function(repo) {
     return repo.fetch("origin", {
       callbacks: {
